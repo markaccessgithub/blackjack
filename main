@@ -1,0 +1,82 @@
+import random
+
+
+def getValue(card):
+    try:
+        return int(card)
+    except:
+        if card == "A" and score+11>21:
+            return 1
+        elif card =="A":
+            return 11
+        if card == "J" or "Q" or "K":
+            return 10
+
+
+
+
+
+
+print("Automatic Blackjack Player\n")
+
+
+games = [0,0,0]
+gameOver=False
+
+
+deck = 500*["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] * 4
+while not gameOver:
+
+
+    random.shuffle(deck)
+
+
+
+
+    hand = []
+    score = 0
+
+
+
+
+    while score < 17 and len(deck) != 0:
+        card = deck.pop()
+        hand.append(card)
+        score = score + getValue(card)
+
+
+
+
+    if score == 21:
+        games[0] += 1
+    elif score < 21:
+        games[1] += 1
+    else:
+
+
+        games[2] += 1
+
+
+
+
+    if len(deck) < 1:
+        gameOver=True
+
+
+
+
+number_of_games = sum(games)
+blackjacks = games[0]
+over17 = games[1]
+busts = games[2]
+print("\nYou played " + str(number_of_games) + " games.")
+
+
+print("\nYou got " + str(blackjacks) + " Blackjacks.", str(round((blackjacks/number_of_games*100), 2)) + " percent")
+print("\nYou got " + str(over17) + " scores over 17.", str(round((over17/number_of_games*100), 2)) + " percent")
+print("\nYou got " + str(busts) + " busts.", str(round((busts/number_of_games*100), 2)) + " percent.")
+
+
+
+
+input("Press enter to exit.")
